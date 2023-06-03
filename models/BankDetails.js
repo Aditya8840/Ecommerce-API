@@ -2,7 +2,9 @@ const mongoose = require("mongoose")
 
 
 
-//Bank Schema
+/**
+ * BankDetails Schema for storing bank account information.
+ */
 const bankDetailsSchema = new mongoose.Schema(
     {
         bankAc: {type: String, required: true},
@@ -11,7 +13,12 @@ const bankDetailsSchema = new mongoose.Schema(
         AcHolderName: {type: String, required: true},
         AcPassbook: {type: String, required: true},
         userId: {type: String, required: true},
-        status: {type: String, required: true, default: "pending"}
+        status: {
+            type: String,
+            required: true,
+            default: 'pending',
+            enum: ['pending', 'approved', 'rejected'],
+          },
     },
     {timestamps: true}
 );

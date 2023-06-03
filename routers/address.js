@@ -5,7 +5,15 @@ const router = require("express").Router()
 
 
 
-//add address
+/**
+ * Add a new address for the user.
+ *
+ * @route PUT /addAddress
+ * @group User Addresses - Operations related to user addresses
+ * @param {Object} req.body - The request body containing the address details.
+ * @returns {Object} The HTTP response message in object.
+ * @throws {Error} If an error occurs while adding the address.
+ */
 router.put("/addAddress", verifyToken, async (req, res)=>{
     try{
         const address = {
@@ -32,7 +40,16 @@ router.put("/addAddress", verifyToken, async (req, res)=>{
 })
 
 
-//Update user address
+/**
+ * Update an existing user address.
+ *
+ * @route PUT /updateAddress/{id}
+ * @group User Addresses - Operations related to user addresses
+ * @param {string} req.params.id - The ID of the address to be updated.
+ * @param {Object} req.body - The request body containing the updated address details.
+ * @returns {Object} The HTTP response message in object.
+ * @throws {Error} If the address to be updated is not found.
+ */
 router.put("/updateAddress/:id", verifyToken, async (req, res) => {
     try {
       const addressId = req.params.id;
@@ -82,7 +99,15 @@ router.put("/updateAddress/:id", verifyToken, async (req, res) => {
 
 
 
-//Delete address 
+/**
+ * Delete an address for the user.
+ *
+ * @route DELETE /deleteAddress/{id}
+ * @group User Addresses - Operations related to user addresses.
+ * @param {string} req.params.id - The ID of the address to be deleted.
+ * @returns {Object} The HTTP response object of operation sucessful or not.
+ * @throws {Error} If the user or address is not found.
+ */
 router.delete("/deleteAddress/:id", verifyToken, async (req, res) => {
 try {
     const addressId = req.params.id;
@@ -109,7 +134,15 @@ try {
 });
   
 
-//Get all address of user
+/**
+ * Get all addresses of the user.
+ *
+ * @route GET /getAddresses
+ * @group User Addresses - Operations related to user addresses
+ * @param {Object} req - The HTTP request object.
+ * @returns {Object} The HTTP response objectof all addresses.
+ * @throws {Error} If the user is not found.
+ */
 router.get("/getAddresses", verifyToken, async (req, res) => {
     try {
       const user = await User.findById(req.user.id);
@@ -127,6 +160,15 @@ router.get("/getAddresses", verifyToken, async (req, res) => {
 });
 
 
+/**
+ * Get a specific address of the user.
+ *
+ * @route GET /getAddress/{id}
+ * @group User Addresses - Operations related to user addresses
+ * @param {string} req.params.id - The ID of the address to be retrieved.
+ * @returns {Object} The HTTP response address object.
+ * @throws {Error} If the user or address is not found.
+ */
 router.get("/getAddress/:id", verifyToken, async (req, res) => {
     try {
       const addressId = req.params.id;

@@ -9,29 +9,55 @@ const addressRoute = require("./routers/address")
 const adminRoute = require("./routers/admin")
 const documentRoute = require("./routers/document")
 
-
 dotenv.config();
 
-app.use(express.json())
-require('./db/mongoose')
+/**
+ * Middleware that parses incoming requests with JSON payloads.
+ */
 
-// Profile Related
+app.use(express.json());
+
+/**
+ * Connect to the MongoDB database using Mongoose.
+ */
+
+require('./db/mongoose');
+
+/**
+ * Middleware that handles user-related routes.
+ * 
+ */
+
 app.use("/api/user", userRoute);
 
-// Authentication Related
+/**
+ * Middleware that handles authentication-related routes.
+ */
+
 app.use("/api/auth", authRoute);
 
-// Address Related
+/**
+ * Middleware that handles address-related routes.
+ */
+
 app.use("/api/address", addressRoute);
 
-// Admin related
-app.use("/api/admin", adminRoute)
+/**
+ * Middleware that handles admin-related routes.
+ */
 
-//Document Related
-app.use("/api/document", documentRoute)
+app.use("/api/admin", adminRoute);
 
+/**
+ * Middleware that handles document-related routes.
+ */
 
+app.use("/api/document", documentRoute);
+
+/**
+ * Start the Express server.
+ */
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`);
-  });
+});

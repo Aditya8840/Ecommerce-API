@@ -9,7 +9,12 @@ const sellerSchema = new mongoose.Schema(
         bank: {type: String},
         gst: {type: String},
         userId: {type: String, required: true, unique: true},
-        status: {type: String, required: true, default: "pending"}
+        status: {
+            type: String,
+            required: true,
+            default: 'pending',
+            enum: ['pending', 'approved', 'rejected'],
+          },
     },
     {timestamps: true}
 );

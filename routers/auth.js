@@ -5,7 +5,20 @@ const jwt = require("jsonwebtoken")
 const axios = require("axios")
 
 
-//Send OTP
+/**
+ * Express Router for handling user-related routes.
+ *
+ * @type {Object}
+ * @namespace /api/user
+ */
+
+/**
+ * Send OTP to the specified phone number.
+ * @param {string} req.body.phone - The phone number to send the OTP.
+ * @returns {Object} The access token in the response body.
+ */
+
+
 router.post("/sendotp", async (req, res) => {
     const phone = req.body.phone
     const otp = Math.floor(100000 + Math.random() * 900000); // Generate a random OTP
@@ -15,7 +28,13 @@ router.post("/sendotp", async (req, res) => {
 })
 
 
-//Verify OTP
+/**
+ * Verify the received OTP.
+ * @param {string} req.body.token - The token received from sending OTP.
+ * @param {string} req.body.otp - The OTP to verify.
+ * @returns {Object} The response containing the access token or error information.
+ */
+
 router.post("/verifyotp", async (req, res) => {
     const token = req.body.token
     const otp = req.body.otp
@@ -48,6 +67,19 @@ router.post("/verifyotp", async (req, res) => {
     }
 
 })
+
+
+
+/**
+ * Send OTP to the specified number using the SMS API.
+ *
+ * @async
+ * @function
+ * @name sendotp
+ * @param {string} number - The phone number to send the OTP.
+ * @param {string} otp - The OTP to be sent.
+ * @returns {Promise} The response from the SMS API.
+ */
 
 async function sendotp(number, otp) {
     let message = `${otp}- is your OTP. Please do not share this OTP with anyone.

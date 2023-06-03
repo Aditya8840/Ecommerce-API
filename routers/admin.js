@@ -3,7 +3,14 @@ const CryptoJS = require("crypto-js");
 const User = require("../models/User");
 const router = require("express").Router()
 
-
+/**
+ * Get all users.
+ *
+ * @route GET /getAllUsers
+ * @group Users - Operations related to users
+ * @returns {Object} The HTTP response object of all user details.
+ * @throws {Error} If the current user is not found, not an admin, or an internal server error occurs.
+ */
 router.get("/getAllUsers", verifyToken, async (req, res) => {
     try {
       const currentUser = await User.findById(req.user.id);
@@ -24,5 +31,7 @@ router.get("/getAllUsers", verifyToken, async (req, res) => {
     }
   });
   
+
+
 
   module.exports = router

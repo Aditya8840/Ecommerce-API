@@ -2,7 +2,9 @@ const router = require("express").Router()
 const jwt = require("jsonwebtoken")
 
 
-//Verify Token which is passed in header
+/**
+ * Verify the authenticity and validity of a token passed in the request header.
+ */
 const verifyToken = (req,res,next)=>{
     const authHeader = req.headers.token
     if(authHeader){
@@ -21,7 +23,9 @@ const verifyToken = (req,res,next)=>{
 }
 
 
-//Check if user with his token or user with token is admin
+/**
+ * Verify if the user associated with the token is authorized to access the requested resource.
+ */
 const verifyTokenAndAuth = (req, res, next)=>{
     verifyToken(req,res,()=>{
         if(req.user.id == req.params.id || req.user.isAdmin){

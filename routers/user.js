@@ -1,3 +1,8 @@
+
+/**
+ * Express Router for handling user-related routes.
+ */
+
 const { verifyTokenAndAuth, verifyToken } = require("./verifyToken");
 const CryptoJS = require("crypto-js");
 const User = require("../models/User");
@@ -11,7 +16,14 @@ const router = require("express").Router()
 
 
 
-//Change Name
+/**
+ * Update the name of a user.
+ * @param {Function} verifyTokenAndAuth - The middleware function to verify the token and user authentication.
+ * @param {string} req.params.id - The ID of the user.
+ * @param {Object} req.body - The request body object containing the updated name.
+ * @returns {Object} The response containing the updated user.
+ */
+
 router.put("/name/:id", verifyTokenAndAuth, async (req, res)=>{
     try{
         const updateUser = await User.findByIdAndUpdate(req.params.id, {$set: req.body}, {new:true})
@@ -22,7 +34,14 @@ router.put("/name/:id", verifyTokenAndAuth, async (req, res)=>{
 })
 
 
-// Change profile pic in base64 string
+/**
+ * Update the profile picture of a user in base64 string format.
+ * @param {Function} verifyTokenAndAuth - The middleware function to verify the token and user authentication.
+ * @param {string} req.params.id - The ID of the user.
+ * @param {Object} req.body - The request body object containing the updated profile picture.
+ * @returns {Object} The response containing the updated user.
+ */
+
 router.post("/profilepic/:id", verifyTokenAndAuth, async (req, res)=>{
     try{
         const updateUser = await User.findByIdAndUpdate(req.params.id, {$set: req.body}, {new:true})
@@ -33,7 +52,12 @@ router.post("/profilepic/:id", verifyTokenAndAuth, async (req, res)=>{
 })
 
 
-// delete user
+/**
+ * Delete a user by their ID.
+ * @param {Function} verifyTokenAndAuth - The middleware function to verify the token and user authentication.
+ * @param {string} req.params.id - The ID of the user to delete.
+ * @returns {Object} The response indicating the success or failure of the deletion operation.
+ */
 router.delete("/:id", verifyTokenAndAuth, async (req, res)=>{
     try{
         const updateUser = await User.findByIdAndDelete(req.params.id)
@@ -44,7 +68,13 @@ router.delete("/:id", verifyTokenAndAuth, async (req, res)=>{
 })
 
 
-//user roles
+/**
+ * Assign a role to a user.
+ * @param {Function} verifyToken - The middleware function to verify the token and get current user.
+ * @param {string} req.body.role - The role to assign to the user.
+ * @returns {Object} The response containing the updated user and role-specific data.
+ */
+
 router.post("/userroles", verifyToken, async (req, res)=>{
     try{
         const role = {
@@ -89,7 +119,12 @@ router.post("/userroles", verifyToken, async (req, res)=>{
 })
 
 
-// get profile data
+/**
+ * Retrieve the profile data of a user.
+ * @param {Function} verifyToken - The middleware function to verify the token and get current user.
+ * @returns {Object} The response containing the user profile data.
+ */
+
 router.get("/getUserProfile", verifyToken, async (req, res) => {
     try {
       const userId = req.user.id;
