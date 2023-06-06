@@ -2,12 +2,16 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-const port = 8080;
+const port = 5555;
+const router = require("express").Router()
 const userRoute = require("./routers/user")
 const authRoute = require("./routers/auth")
 const addressRoute = require("./routers/address")
 const adminRoute = require("./routers/admin")
 const documentRoute = require("./routers/document")
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
+
 
 dotenv.config();
 
@@ -53,6 +57,11 @@ app.use("/api/admin", adminRoute);
  */
 
 app.use("/api/document", documentRoute);
+
+/**
+ * Swagger Documentation Setup
+ */
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 /**
  * Start the Express server.

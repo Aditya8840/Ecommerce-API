@@ -1,3 +1,6 @@
+/**
+ * Middleware file here we verify token and check authorization
+ */
 const router = require("express").Router()
 const jwt = require("jsonwebtoken")
 
