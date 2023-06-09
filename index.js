@@ -10,7 +10,7 @@ const addressRoute = require("./routers/address")
 const adminRoute = require("./routers/admin")
 const documentRoute = require("./routers/document")
 const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('./swagger.json');
+const swaggerDocument = require('./swagger/swagger.json');
 
 
 dotenv.config();

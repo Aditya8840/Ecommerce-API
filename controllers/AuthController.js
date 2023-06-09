@@ -47,7 +47,8 @@ exports.verifyOtp = async (req, res, next)=>{
         if(user){
             const accessToken = jwt.sign({id: user._id, isAdmin: user.isAdmin},process.env.JWT_SECRET, {expiresIn: '3d'})
             console.log(user._doc)
-            return res.status(200).json({"response": "200","token": accessToken});
+            res.set('Authorization', "Bearer "+accessToken);
+            return res.status(200).json({"response": "200"});
         }else{
             const newUser = new User({
                 name: "null",
